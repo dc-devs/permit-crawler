@@ -14,9 +14,9 @@ import shaJs from 'sha.js';
  * @returns sha256 message digest
  */
 export function sha256(message: string): string {
-  return shaJs('sha256')
-    .update(message)
-    .digest('hex');
+	return shaJs('sha256')
+		.update(message)
+		.digest('hex');
 }
 
 /**
@@ -32,7 +32,7 @@ export function sha256(message: string): string {
  * @returns sha256 message digest
  */
 export function sha256Native(message: string): string {
-  return createHash('sha256')
-    .update(message)
-    .digest('hex');
+	return createHash('sha256')
+		.update(message)
+		.digest('hex');
 }

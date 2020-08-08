@@ -18,15 +18,15 @@
  * @returns       a Promise which should contain `['a','b','c']`
  */
 export async function asyncABC(): Promise<ReadonlyArray<string>> {
-  function somethingSlow(index: 0 | 1 | 2): Promise<string> {
-    const storage = 'abc'.charAt(index);
-    return new Promise<string>(resolve =>
-      // later...
-      resolve(storage)
-    );
-  }
-  const a = await somethingSlow(0);
-  const b = await somethingSlow(1);
-  const c = await somethingSlow(2);
-  return [a, b, c];
+	function somethingSlow(index: 0 | 1 | 2): Promise<string> {
+		const storage = 'abc'.charAt(index);
+		return new Promise<string>(resolve =>
+			// later...
+			resolve(storage)
+		);
+	}
+	const a = await somethingSlow(0);
+	const b = await somethingSlow(1);
+	const c = await somethingSlow(2);
+	return [a, b, c];
 }
