@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 const { generatePageUrl } = utils;
-const { signIn, getSiteData, setGroupSize, setIsCommercialTrip } = actions;
+const { signIn, getPermitInfo, setGroupSize, setIsCommercialTrip } = actions;
 
 puppeteer.use(StealthPlugin());
 
@@ -13,17 +13,15 @@ puppeteer.use(StealthPlugin());
 	const page = await browser.newPage();
 
 	const pageUrl = generatePageUrl();
-	await page.goto(pageUrl);
+	await page.goto(pageUrl, { waitUntil: 'domcontentloaded' });
 
 	await signIn(page);
 	await setGroupSize(page);
 	await setIsCommercialTrip(page);
 
-	const siteData = await getSiteData(page);
+	const permitInfo = await getPermitInfo(page);
 
-	console.log(siteData);
-
-	// await page.waitFor(99000);
+	console.log(permitInfo);
 
 	await browser.close();
 })();

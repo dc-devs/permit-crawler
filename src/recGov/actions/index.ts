@@ -1,6 +1,6 @@
 import signIn from './signIn';
-import getSiteData from './getSiteData';
 import setGroupSize from './setGroupSize';
+import getPermitInfo from './getPermitInfo';
 import setIsCommercialTrip from './setIsCommercialTrip';
 
-export default { signIn, getSiteData, setGroupSize, setIsCommercialTrip };
+export default { signIn, getPermitInfo, setGroupSize, setIsCommercialTrip };

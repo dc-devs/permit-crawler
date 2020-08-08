@@ -6,7 +6,7 @@ const { tripDetails } = config;
 const { groupSize } = tripDetails;
 const { groupSizeInput, addGroupMemberButton } = recGovPageElements;
 
-const setGroupSize = async (page: Page) => {
+const setGroupSize = async (page: Page): Promise<void> => {
 	await page.evaluate(
 		({ groupSizeInput }) => {
 			const input = document.querySelector(

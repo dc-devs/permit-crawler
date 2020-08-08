@@ -1,5 +1,5 @@
 {
-	"name": "camp-crawler",
+	"name": "permit-crawler",
 	"version": "1.0.0",
 	"description": "crawls recreation.gov for pass availabiley",
 	"main": "build/main/index.js",

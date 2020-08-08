@@ -12,7 +12,7 @@ const {
 const { credentials } = config;
 const { email, password } = credentials;
 
-const signIn = async (page: Page) => {
+const signIn = async (page: Page): Promise<void> => {
 	await page.click(logInButton);
 
 	await page.focus(emailAddressInput);
