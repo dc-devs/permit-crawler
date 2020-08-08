@@ -9,18 +9,20 @@
 	"keywords": [],
 	"scripts": {
 		"build": "rimraf ./build && tsc",
-		"crawl": "node build/crawler",
-		"test": "ava"
+		"test": "ava",
+		"getRecGovWildernessPermit": "node build/recGov/crawlers/recGovWildernessPermitCrawler"
 	},
 	"dependencies": {
 		"puppeteer": "^5.2.1",
 		"puppeteer-extra": "^3.1.13",
 		"puppeteer-extra-plugin-stealth": "^2.4.15",
-		"sha.js": "^2.4.11"
+		"sha.js": "^2.4.11",
+		"yargs": "^15.4.1"
 	},
 	"devDependencies": {
 		"@types/node": "^14.0.27",
 		"@types/puppeteer": "^3.0.1",
+		"@types/yargs": "^15.0.5",
 		"ava": "^2.4.0",
 		"prettier": "^1.19.1",
 		"rimraf": "^3.0.2",

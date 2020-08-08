@@ -1,11 +1,3 @@
-node_modules
 build
-test
-src/**.js
-.idea/*
-
-coverage
-.nyc_output
-*.log
-
-yarn.lock
+node_modules
+crawlConfigs
