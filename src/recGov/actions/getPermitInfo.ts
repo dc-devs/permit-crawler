@@ -4,19 +4,19 @@ import config from '../../crawlConfigs/recGovWildernessPermitConfig';
 const { tripDetails } = config;
 const { siteName } = tripDetails;
 
-const getPermitInfo = async (page: Page): Promise<{}> => {
+interface PermitInfo {
+	id: string;
+	site: string;
+	area: string;
+	availability: string;
+}
+
+const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
 	// TODO: Need to find a better way to refactor these infaces / functions out
 	// Since you can't pass functions into `page.evaluate`, just defining in
 	// the function itself for now
 	return await page.evaluate(
 		({ siteName }) => {
-			interface PermitInfo {
-				id: string;
-				site: string;
-				area: string;
-				availability: string;
-			}
-
 			const permitInfo = {} as PermitInfo;
 
 			const getTableRows = (): NodeListOf<HTMLTableRowElement> => {
