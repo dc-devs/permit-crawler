@@ -11,6 +11,7 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 			type: 'overnight-permit',
 			date: '2020-08-21',
 			groupSize: '2',
+			siteName: 'River Trail',
 		},
 	};
 
@@ -20,17 +21,21 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 		passwordInput: '#rec-acct-sign-in-password',
 		signInSumbitButton: '.rec-acct-sign-in-btn',
 		groupSizeInput: '.sarsa-text-field-input',
+		commericalTripNoButton: '#prompt-answer-no1',
+		addGroupMemberButton: '*[aria-label^="Add guests"]',
 	};
 
 	const { credentials, tripDetails } = config;
 	const { email, password } = credentials;
-	const { type, date, groupSize } = tripDetails;
+	const { type, date, siteName, groupSize } = tripDetails;
 	const {
 		logInButton,
-		signInSumbitButton,
 		passwordInput,
 		groupSizeInput,
 		emailAddressInput,
+		signInSumbitButton,
+		addGroupMemberButton,
+		commericalTripNoButton,
 	} = pageElements;
 	const pageUrl = `https://www.recreation.gov/permits/233262/registration/detailed-availability?type=${type}&date=${date}`;
 
@@ -55,6 +60,8 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
 	// Set Trip Details
 	// -----------------
+
+	// Set Group Size
 	await page.evaluate(
 		({ groupSizeInput }) => {
 			const input = document.querySelector(
@@ -65,10 +72,59 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 		{ groupSizeInput }
 	);
 
-	await page.focus(groupSizeInput);
-	await page.keyboard.type(groupSize);
+	await page.evaluate(
+		({ groupSize, addGroupMemberButton }) => {
+			const members = parseInt(groupSize, 10);
 
-	await page.waitFor(3000);
+			for (let i = 0; i < members; i++) {
+				const button = document.querySelector(
+					addGroupMemberButton
+				) as HTMLElement;
+				button.click();
+			}
+		},
+		{ groupSize, addGroupMemberButton }
+	);
+
+	// Click commercial button
+	await page.evaluate(
+		({ commericalTripNoButton }) => {
+			const input = document.querySelector(
+				commericalTripNoButton
+			) as HTMLInputElement;
+
+			input.click();
+		},
+		{ commericalTripNoButton }
+	);
+
+	// Find Trail Name
+	await page.evaluate(
+		({ siteName }) => {
+			const tableRows = document.querySelectorAll('tr');
+
+			for (let i = 0; i < tableRows.length; i++) {
+				const tableRow = tableRows[i];
+				const tableColumns = tableRow.querySelectorAll('td');
+				const siteElement = tableColumns.item(1);
+				const site = siteElement && siteElement.innerText;
+				const availabilityElement = tableColumns.item(4);
+				const availabilityClassName =
+					availabilityElement &&
+					availabilityElement.classList.item(0);
+				const isAvailable =
+					availabilityClassName &&
+					availabilityClassName.includes('available');
+
+				if (site === siteName) {
+					console.log(site, isAvailable);
+				}
+			}
+		},
+		{ siteName }
+	);
+
+	await page.waitFor(99000);
 
 	await browser.close();
 })();
