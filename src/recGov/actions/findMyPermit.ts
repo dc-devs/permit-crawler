@@ -27,7 +27,16 @@ const findMyPermit = async (page: Page): Promise<boolean> => {
 			body: `${groupSize} permits found at ${siteName} for ${date}... time to book!! \n ${pageUrl}`,
 			numbers: [davidC],
 		});
+
 		await bookNow(page);
+
+		await sendText({
+			body: `${groupSize} permits at ${siteName} for ${date} are booked and sitting in your cart... time to purchase!! \n https://www.recreation.gov/cart`,
+			numbers: [davidC],
+		});
+
+		const twentyMinutes = 1200000;
+		await page.waitFor(twentyMinutes);
 
 		return true;
 	} else {
