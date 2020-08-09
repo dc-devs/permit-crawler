@@ -3,6 +3,7 @@ import bookNow from './bookNow';
 import setGroupSize from './setGroupSize';
 import getPermitInfo from './getPermitInfo';
 import setIsCommercialTrip from './setIsCommercialTrip';
+import { sendText } from '../../twilio';
 
 const findMyPermit = async (page: Page): Promise<boolean> => {
 	await setGroupSize(page);
@@ -14,7 +15,12 @@ const findMyPermit = async (page: Page): Promise<boolean> => {
 	const isPermitAvailable = availability === 'available';
 
 	if (isPermitAvailable) {
+		await sendText({
+			body: 'Permits found, time to book!! ',
+			numbers: ['19256399635'],
+		});
 		await bookNow(page);
+
 		return true;
 	} else {
 		await page.reload({ waitUntil: 'domcontentloaded' });
