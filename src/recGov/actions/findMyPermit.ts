@@ -1,6 +1,7 @@
 import { Page } from 'puppeteer';
-import getPermitInfo from './getPermitInfo';
+import bookNow from './bookNow';
 import setGroupSize from './setGroupSize';
+import getPermitInfo from './getPermitInfo';
 import setIsCommercialTrip from './setIsCommercialTrip';
 
 const findMyPermit = async (page: Page): Promise<boolean> => {
@@ -13,7 +14,7 @@ const findMyPermit = async (page: Page): Promise<boolean> => {
 	const isPermitAvailable = availability === 'available';
 
 	if (isPermitAvailable) {
-		console.log('-- PERMIT FOUND!!');
+		await bookNow(page);
 		return true;
 	} else {
 		await page.reload({ waitUntil: 'domcontentloaded' });

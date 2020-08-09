@@ -1,4 +1,4 @@
-import recGovPageElements from './recGovPageElements';
+import pageElements from './pageElements';
 import forestNameIdMap from './forestNameIdMap';
 
-export { recGovPageElements, forestNameIdMap };
+export { pageElements, forestNameIdMap };

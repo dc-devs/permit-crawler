@@ -1,24 +1,17 @@
 import { Page } from 'puppeteer';
 import config from '../../crawlConfigs/recGovWildernessPermitConfig';
+import { pageElements } from '../constants';
 
 const { tripDetails } = config;
 const { siteName } = tripDetails;
+const { availabilityButtonSelector } = pageElements;
 
-interface PermitInfo {
-	id: string;
-	site: string;
-	area: string;
-	availability: string;
-}
-
-const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
+const clickAvailabilityButton = async (page: Page): Promise<boolean> => {
 	// TODO: Need to find a better way to refactor these infaces / functions out
 	// Since you can't pass functions into `page.evaluate`, just defining in
 	// the function itself for now
 	return await page.evaluate(
-		({ siteName }) => {
-			const permitInfo = {} as PermitInfo;
-
+		({ siteName, availabilityButtonSelector }) => {
 			const getTableRows = (): NodeListOf<HTMLTableRowElement> => {
 				return document.querySelectorAll('tr');
 			};
@@ -41,31 +34,6 @@ const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
 				return siteColumn?.innerText || '';
 			};
 
-			const getId = (
-				tableRowColumns: NodeListOf<HTMLTableDataCellElement>
-			): string => {
-				const idColumn = tableRowColumns.item(0);
-				const idColumnLink = idColumn?.querySelector('a');
-
-				return idColumnLink?.innerText || '';
-			};
-
-			const getArea = (
-				tableRowColumns: NodeListOf<HTMLTableDataCellElement>
-			): string => {
-				const areaColumn = tableRowColumns.item(2);
-
-				return areaColumn?.innerText || '';
-			};
-
-			const getAvailability = (
-				tableRowColumns: NodeListOf<HTMLTableDataCellElement>
-			): string => {
-				const availabilityColumn = tableRowColumns.item(3);
-
-				return availabilityColumn?.classList?.item(0) || '';
-			};
-
 			const tableRows = getTableRows();
 
 			Object.keys(tableRows).some((tableRowKey: string) => {
@@ -77,20 +45,26 @@ const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
 				const site = getSite(tableRowColumns);
 
 				if (site === siteName) {
-					permitInfo.site = site;
-					permitInfo.id = getId(tableRowColumns);
-					permitInfo.area = getArea(tableRowColumns);
-					permitInfo.availability = getAvailability(tableRowColumns);
+					const availabilityColumn: HTMLTableDataCellElement = tableRowColumns.item(
+						3
+					);
+
+					const availabilityButton = availabilityColumn?.querySelector(
+						availabilityButtonSelector
+					) as HTMLButtonElement;
+
+					availabilityButton?.click();
+
 					return true;
 				} else {
 					return false;
 				}
 			});
 
-			return permitInfo;
+			return true;
 		},
-		{ siteName }
+		{ siteName, availabilityButtonSelector }
 	);
 };
 
-export default getPermitInfo;
+export default clickAvailabilityButton;

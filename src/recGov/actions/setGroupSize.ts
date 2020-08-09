@@ -1,35 +1,35 @@
 import { Page } from 'puppeteer';
-import { recGovPageElements } from '../constants';
+import { pageElements } from '../constants';
 import config from '../../crawlConfigs/recGovWildernessPermitConfig';
 
 const { tripDetails } = config;
 const { groupSize } = tripDetails;
-const { groupSizeInput, addGroupMemberButton } = recGovPageElements;
+const { groupSizeInputSelector, addGroupMemberButtonSelector } = pageElements;
 
 const setGroupSize = async (page: Page): Promise<void> => {
 	await page.evaluate(
-		({ groupSizeInput }) => {
+		({ groupSizeInputSelector }) => {
 			const input = document.querySelector(
-				groupSizeInput
+				groupSizeInputSelector
 			) as HTMLInputElement;
 			input.value = '';
 		},
-		{ groupSizeInput }
+		{ groupSizeInputSelector }
 	);
 
 	await page.evaluate(
-		({ groupSize, addGroupMemberButton }) => {
+		({ groupSize, addGroupMemberButtonSelector }) => {
 			const members = parseInt(groupSize, 10);
 
 			for (let i = 0; i < members; i++) {
 				const button = document.querySelector(
-					addGroupMemberButton
+					addGroupMemberButtonSelector
 				) as HTMLElement;
 
 				button.click();
 			}
 		},
-		{ groupSize, addGroupMemberButton }
+		{ groupSize, addGroupMemberButtonSelector }
 	);
 };
 

@@ -1,18 +1,18 @@
 import { Page } from 'puppeteer';
-import { recGovPageElements } from '../constants';
+import { pageElements } from '../constants';
 
-const { commericalTripNoButton } = recGovPageElements;
+const { commericalTripNoButtonSelector } = pageElements;
 
 const setIsCommericalTrip = async (page: Page): Promise<void> => {
 	await page.evaluate(
-		({ commericalTripNoButton }) => {
+		({ commericalTripNoButtonSelector }) => {
 			const input = document.querySelector(
-				commericalTripNoButton
+				commericalTripNoButtonSelector
 			) as HTMLInputElement;
 
 			input.click();
 		},
-		{ commericalTripNoButton }
+		{ commericalTripNoButtonSelector }
 	);
 };
 

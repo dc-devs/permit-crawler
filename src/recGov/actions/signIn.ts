@@ -1,27 +1,27 @@
 import { Page } from 'puppeteer';
 import config from '../../crawlConfigs/recGovWildernessPermitConfig';
-import { recGovPageElements } from '../constants';
+import { pageElements } from '../constants';
 
 const {
-	logInButton,
-	passwordInput,
-	emailAddressInput,
-	signInSumbitButton,
-} = recGovPageElements;
+	logInButtonSelector,
+	passwordInputSelector,
+	emailAddressInputSelector,
+	signInSumbitButtonSelector,
+} = pageElements;
 
 const { credentials } = config;
 const { email, password } = credentials;
 
 const signIn = async (page: Page): Promise<void> => {
-	await page.click(logInButton);
+	await page.click(logInButtonSelector);
 
-	await page.focus(emailAddressInput);
+	await page.focus(emailAddressInputSelector);
 	await page.keyboard.type(email);
 
-	await page.focus(passwordInput);
+	await page.focus(passwordInputSelector);
 	await page.keyboard.type(password);
 
-	await page.click(signInSumbitButton);
+	await page.click(signInSumbitButtonSelector);
 };
 
 export default signIn;
