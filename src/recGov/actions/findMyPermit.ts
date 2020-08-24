@@ -11,21 +11,21 @@ const pageUrl = generatePageUrl();
 
 const { tripDetails, numbers } = config;
 const { date, siteName, groupSize } = tripDetails;
-const { davidC } = numbers;
+const { davidC, davidK } = numbers;
 
 const findMyPermit = async (page: Page): Promise<boolean> => {
 	await setGroupSize(page);
 	await setIsCommercialTrip(page);
 
 	const permitInfo = await getPermitInfo(page);
-
+	console.log(permitInfo);
 	const { availability } = permitInfo;
 	const isPermitAvailable = availability === 'available';
 
 	if (isPermitAvailable) {
 		await sendText({
 			body: `${groupSize} permits found at ${siteName} for ${date}... time to book!! \n ${pageUrl}`,
-			numbers: [davidC],
+			numbers: [davidC, davidK],
 		});
 
 		await bookNow(page);
