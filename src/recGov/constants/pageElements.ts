@@ -6,12 +6,13 @@ const pageElements: PageElements = {
 	groupSizeInputSelector: '.sarsa-text-field-input',
 	passwordInputSelector: '#rec-acct-sign-in-password',
 	signInSumbitButtonSelector: '.rec-acct-sign-in-btn',
-	availabilityButtonSelector: '.rec-availability-date',
+	availabilityButtonSelector: 'button',
 	commericalTripNoButtonSelector: '#prompt-answer-no1',
-	logInButtonSelector: '.nav-header-button:nth-child(2)',
+	logInButtonSelector: 'button#ga-global-nav-log-in-link',
 	addGroupMemberButtonSelector: '*[aria-label^="Add guests"]',
-	emailAddressInputSelector: '#rec-acct-sign-in-email-address',
+	emailAddressInputSelector: 'input#email',
 	bookNowContentSelector: '.per-availability-book-now-content',
+	dateInputSelector: '#SingleDatePicker1'
 };
 
 export default pageElements;

@@ -15,10 +15,22 @@ puppeteer.use(StealthPlugin());
 	const pageUrl = generatePageUrl();
 	await page.goto(pageUrl, { waitUntil: 'domcontentloaded' });
 
-	await page.waitFor(10000);
+	await page.waitFor(1000);
 	await signIn(page);
-	await page.waitFor(5000);
-	await findMyPermit(page);
+	await page.waitFor(1000);
+
+	while (true) {
+		let permitFound = await findMyPermit(page);
+
+		if (permitFound) {
+			const twentyMinutes = 1200000;
+			await page.waitFor(twentyMinutes);
+			break;
+		} else {
+			await page.reload({ waitUntil: 'domcontentloaded' });
+			await page.waitFor(3000);
+		}
+	}
 
 	await browser.close();
 })();
