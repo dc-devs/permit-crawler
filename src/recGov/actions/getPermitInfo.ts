@@ -2,13 +2,13 @@ import { Page } from 'puppeteer';
 import config from '../../crawlConfigs/recGovWildernessPermitConfig';
 
 const { tripDetails } = config;
-const { siteName } = tripDetails;
+const { siteNames } = tripDetails;
 
 interface PermitInfo {
 	id: string;
 	site: string;
 	area: string;
-	availability: string;
+	availability: boolean;
 }
 
 const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
@@ -16,11 +16,11 @@ const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
 	// Since you can't pass functions into `page.evaluate`, just defining in
 	// the function itself for now
 	return await page.evaluate(
-		({ siteName }) => {
+		(siteNames: string[]) => {
 			const permitInfo = {} as PermitInfo;
 
 			const getTableRows = (): NodeListOf<HTMLTableRowElement> => {
-				return document.querySelectorAll('tr');
+				return document.querySelectorAll('.rec-grid-row');
 			};
 
 			const getTableRowColumns = (
@@ -30,7 +30,7 @@ const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
 				const tableRowKeyNum = parseInt(tableRowKey, 10);
 				const tableRow = tableRows[tableRowKeyNum];
 
-				return tableRow.querySelectorAll('td');
+				return tableRow.querySelectorAll('.rec-grid-grid-cell');
 			};
 
 			const getSite = (
@@ -60,10 +60,9 @@ const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
 
 			const getAvailability = (
 				tableRowColumns: NodeListOf<HTMLTableDataCellElement>
-			): string => {
+			): boolean => {
 				const availabilityColumn = tableRowColumns.item(3);
-
-				return availabilityColumn?.classList?.item(0) || '';
+				return availabilityColumn?.classList.contains('available');
 			};
 
 			const tableRows = getTableRows();
@@ -75,12 +74,12 @@ const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
 				);
 
 				const site = getSite(tableRowColumns);
-
-				if (site === siteName) {
+				const availability = getAvailability(tableRowColumns);
+				if (siteNames.includes(site) && availability) {
 					permitInfo.site = site;
 					permitInfo.id = getId(tableRowColumns);
 					permitInfo.area = getArea(tableRowColumns);
-					permitInfo.availability = getAvailability(tableRowColumns);
+					permitInfo.availability = availability;
 					return true;
 				} else {
 					return false;
@@ -89,7 +88,7 @@ const getPermitInfo = async (page: Page): Promise<PermitInfo> => {
 
 			return permitInfo;
 		},
-		{ siteName }
+		siteNames
 	);
 };
 

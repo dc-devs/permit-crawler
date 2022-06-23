@@ -9,16 +9,28 @@ const { signIn, findMyPermit } = actions;
 puppeteer.use(StealthPlugin());
 
 (async () => {
-	const browser = await puppeteer.launch({ headless: false });
-	const page = await browser.newPage();
+    const browser = await puppeteer.launch({ headless: false });
+    const page = await browser.newPage();
 
-	const pageUrl = generatePageUrl();
-	await page.goto(pageUrl, { waitUntil: 'domcontentloaded' });
+    const pageUrl = generatePageUrl();
+    await page.goto(pageUrl, { waitUntil: 'domcontentloaded' });
 
-	await page.waitFor(10000);
-	await signIn(page);
-	await page.waitFor(5000);
-	await findMyPermit(page);
+    await page.waitForTimeout(1000);
+    await signIn(page);
+    await page.waitForTimeout(1000);
 
-	await browser.close();
+    while (true) {
+        let permitFound = await findMyPermit(page);
+
+        if (permitFound) {
+            const twentyMinutes = 1200000;
+            await page.waitForTimeout(twentyMinutes);
+            break;
+        } else {
+            await page.reload({ waitUntil: 'domcontentloaded' });
+            await page.waitForTimeout(3000);
+        }
+    }
+
+    await browser.close();
 })();

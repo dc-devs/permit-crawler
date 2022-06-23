@@ -1,10 +1,10 @@
 interface ForestNameIdMap {
-	'Inyo National Forest': string;
-	[key: string]: string;
+	[key: string]: {id: string, commercial: boolean};
 }
 
 const forestNameIdMap: ForestNameIdMap = {
-	'Inyo National Forest': '233262',
+	'Inyo National Forest': {id: '233262', commercial: true},
+	'Yosemite': {id: '445859', commercial: false},
 };
 
 export default forestNameIdMap;

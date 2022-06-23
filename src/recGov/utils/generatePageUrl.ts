@@ -2,12 +2,12 @@ import config from '../../crawlConfigs/recGovWildernessPermitConfig';
 import { forestNameIdMap } from '../constants';
 
 const { tripDetails } = config;
-const { type, date, forestName } = tripDetails;
+const { type, forestName } = tripDetails;
 
 const generatePageUrl = (): string => {
-	const permitId: string = forestNameIdMap[forestName];
+	const permitId: string = forestNameIdMap[forestName].id;
 
-	const pageUrl: string = `https://www.recreation.gov/permits/${permitId}/registration/detailed-availability?type=${type}&date=${date}`;
+	const pageUrl: string = `https://www.recreation.gov/permits/${permitId}/registration/detailed-availability?type=${type}`;
 
 	return pageUrl;
 };

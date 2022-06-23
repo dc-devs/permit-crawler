@@ -1,19 +1,16 @@
 import { Page } from 'puppeteer';
-import config from '../../crawlConfigs/recGovWildernessPermitConfig';
 import { pageElements } from '../constants';
 
-const { tripDetails } = config;
-const { siteName } = tripDetails;
 const { availabilityButtonSelector } = pageElements;
 
-const clickAvailabilityButton = async (page: Page): Promise<boolean> => {
+const clickAvailabilityButton = async (page: Page, siteName: string): Promise<boolean> => {
 	// TODO: Need to find a better way to refactor these infaces / functions out
 	// Since you can't pass functions into `page.evaluate`, just defining in
 	// the function itself for now
 	return await page.evaluate(
-		({ siteName, availabilityButtonSelector }) => {
+		(availabilityButtonSelector, siteName) => {
 			const getTableRows = (): NodeListOf<HTMLTableRowElement> => {
-				return document.querySelectorAll('tr');
+				return document.querySelectorAll('.rec-grid-row');
 			};
 
 			const getTableRowColumns = (
@@ -23,7 +20,7 @@ const clickAvailabilityButton = async (page: Page): Promise<boolean> => {
 				const tableRowKeyNum = parseInt(tableRowKey, 10);
 				const tableRow = tableRows[tableRowKeyNum];
 
-				return tableRow.querySelectorAll('td');
+				return tableRow.querySelectorAll('.rec-grid-grid-cell');
 			};
 
 			const getSite = (
@@ -63,7 +60,7 @@ const clickAvailabilityButton = async (page: Page): Promise<boolean> => {
 
 			return true;
 		},
-		{ siteName, availabilityButtonSelector }
+		availabilityButtonSelector, siteName 
 	);
 };
 
