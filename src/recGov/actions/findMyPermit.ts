@@ -5,7 +5,7 @@ import getPermitInfo from './getPermitInfo';
 import setIsCommercialTrip from './setIsCommercialTrip';
 import { sendText } from '../../twilio';
 import generatePageUrl from '../utils/generatePageUrl';
-import config from '../../crawlConfigs/recGovWildernessPermitConfig';
+import config from '../../config';
 
 const pageUrl = generatePageUrl();
 
@@ -25,23 +25,23 @@ const findMyPermit = async (page: Page): Promise<boolean> => {
 	if (isPermitAvailable) {
 		await sendText({
 			body: `${groupSize} permits found at ${siteName} for ${date}... time to book!! \n ${pageUrl}`,
-			numbers: [davidC, davidK],
+			numbers: [davidC as string, davidK as string],
 		});
 
 		await bookNow(page);
 
 		await sendText({
 			body: `${groupSize} permits at ${siteName} for ${date} are booked and sitting in your cart... time to purchase!! \n https://www.recreation.gov/cart`,
-			numbers: [davidC],
+			numbers: [davidC as string],
 		});
 
 		const twentyMinutes = 1200000;
-		await page.waitFor(twentyMinutes);
+		await page.waitForTimeout(twentyMinutes);
 
 		return true;
 	} else {
 		await page.reload({ waitUntil: 'domcontentloaded' });
-		await page.waitFor(3000);
+		await page.waitForTimeout(3000);
 
 		return findMyPermit(page);
 	}

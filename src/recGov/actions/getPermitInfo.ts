@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer';
-import config from '../../crawlConfigs/recGovWildernessPermitConfig';
+import config from '../../config';
 
 const { tripDetails } = config;
 const { siteName } = tripDetails;

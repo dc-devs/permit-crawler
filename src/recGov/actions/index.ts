@@ -6,7 +6,7 @@ import getPermitInfo from './getPermitInfo';
 import setIsCommercialTrip from './setIsCommercialTrip';
 import clickAvailabilityButton from './clickAvailabilityButton';
 
-export default {
+export {
 	signIn,
 	bookNow,
 	setGroupSize,

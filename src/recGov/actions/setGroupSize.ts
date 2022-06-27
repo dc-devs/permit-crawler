@@ -1,6 +1,6 @@
 import { Page } from 'puppeteer';
 import { pageElements } from '../constants';
-import config from '../../crawlConfigs/recGovWildernessPermitConfig';
+import config from '../../config';
 
 const { tripDetails } = config;
 const { groupSize } = tripDetails;
@@ -19,7 +19,7 @@ const setGroupSize = async (page: Page): Promise<void> => {
 
 	await page.evaluate(
 		({ groupSize, addGroupMemberButtonSelector }) => {
-			const members = parseInt(groupSize, 10);
+			const members = parseInt(groupSize.toString(), 10);
 
 			for (let i = 0; i < members; i++) {
 				const button = document.querySelector(

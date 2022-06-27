@@ -1,0 +1,5 @@
+{
+	"extends": "./tsconfig.json",
+	"include": ["src", "node_modules/@types/puppeteer/index.d.ts"],
+	"exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
+}

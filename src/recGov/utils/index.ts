@@ -1,3 +1,3 @@
 import generatePageUrl from './generatePageUrl';
 
-export default { generatePageUrl };
+export { generatePageUrl };
