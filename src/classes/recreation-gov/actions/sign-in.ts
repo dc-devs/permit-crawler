@@ -21,6 +21,7 @@ const signIn = async ({ page, config }: IProps) => {
 	await page.keyboard.type(password);
 
 	await page.click(PageElement.BUTTON_LOG_IN_SUBMIT);
+	await page.waitForSelector(PageElement.PROFILE_DROPDOWN);
 };
 
 export default signIn;

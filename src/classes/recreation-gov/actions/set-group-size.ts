@@ -17,6 +17,8 @@ const setGroupSize = async ({ page, config }: IProps) => {
 	await page.evaluate(() => document.execCommand('selectall', false));
 	await page.keyboard.sendCharacter(groupSize);
 	await page.click(PageElement.BODY);
+
+	await page.waitForSelector(PageElement.BOOK_NOW_CONTENT);
 };
 
 export default setGroupSize;

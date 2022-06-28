@@ -2,6 +2,8 @@ enum PageElement {
 	BODY = 'body',
 	PERMIT_ROW = '.rec-grid-row',
 	PERMIT_CONTENT = '.sarsa-button-content',
+	PROFILE_DROPDOWN = '.nav-profile-dropdown',
+	BOOK_NOW_CONTENT = '.per-availability-book-now-content',
 
 	ICON_CHECK = '.rec-icon-check',
 
