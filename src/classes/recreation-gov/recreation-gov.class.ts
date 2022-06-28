@@ -3,12 +3,13 @@ import { IConfig } from '../../interfaces';
 import {
 	signIn,
 	setDate,
+	clickBookNow,
 	setGroupSize,
+	selectPermit,
 	visitHomePage,
 	visitPermitsPage,
+	getPermitAvailability,
 } from './actions';
-
-// import { findMyPermit } from './classes/recreation-gov/actions';
 
 interface IProps {
 	page: Page;
@@ -50,11 +51,31 @@ class RecreationGov {
 			config: this.config,
 		});
 	};
-	
+
 	setDate = async () => {
 		await setDate({
 			page: this.page,
 			config: this.config,
+		});
+	};
+
+	getPermitAvailability = async () => {
+		return await getPermitAvailability({
+			page: this.page,
+			config: this.config,
+		});
+	};
+
+	selectPermit = async () => {
+		return await selectPermit({
+			page: this.page,
+			config: this.config,
+		});
+	};
+
+	clickBookNow = async () => {
+		return await clickBookNow({
+			page: this.page,
 		});
 	};
 }

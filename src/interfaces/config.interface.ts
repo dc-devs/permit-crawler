@@ -20,11 +20,12 @@ interface ICedentials {
 
 interface ITripDetails {
 	date: string;
-	siteName: string;
 	permitId: string;
+	siteName?: string;
 	groupSize: string;
 	permitType: string;
-	forestName: string;
+	forestName?: string;
+	entryPointId: string;
 }
 
 interface IConfig {

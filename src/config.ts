@@ -1,5 +1,5 @@
 import { IConfig } from './interfaces';
-import { PermitId, PermitType } from './enums';
+import { PermitId, PermitType, YosemiteEntryPointId } from './enums';
 
 require('dotenv').config();
 
@@ -19,12 +19,11 @@ const config: IConfig = {
 		},
 	},
 	tripDetails: {
-		permitId: PermitId.YOSEMITE_WILDERNESS,
-		permitType: PermitType.OVERNIGHT,
-		date: '2022-07-08',
 		groupSize: '2',
-		siteName: 'Shadow Creek',
-		forestName: 'Inyo National Forest',
+		date: '07/15/2022',
+		permitType: PermitType.OVERNIGHT,
+		permitId: PermitId.YOSEMITE_WILDERNESS,
+		entryPointId: YosemiteEntryPointId.ALDER_CREEK,
 	},
 };
 

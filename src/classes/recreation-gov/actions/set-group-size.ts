@@ -1,6 +1,6 @@
 import { Page } from 'puppeteer';
-import { IConfig } from '../../../interfaces';
 import { PageElement } from '../enums';
+import { IConfig } from '../../../interfaces';
 
 interface IProps {
 	page: Page;

@@ -1,5 +1,6 @@
 import config from './config';
 import puppeteer from 'puppeteer-extra';
+import { PermitAvailability } from './enums';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import RecreationGov from './classes/recreation-gov/recreation-gov.class';
 
@@ -17,7 +18,17 @@ puppeteer.use(StealthPlugin());
 	await recreationGov.setDate();
 	await recreationGov.setGroupSize();
 
-	await page.waitForTimeout(15000);
+	await page.waitForTimeout(1000);
+
+	const { availability, permitCount } =
+		await recreationGov.getPermitAvailability();
+
+	if (availability === PermitAvailability.AVAILABLE) {
+		await recreationGov.selectPermit();
+		await recreationGov.clickBookNow();
+	}
+
+	await page.waitForTimeout(9999999);
 
 	await browser.close();
 })();
