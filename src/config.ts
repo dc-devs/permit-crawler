@@ -1,5 +1,10 @@
 import { IConfig } from './interfaces';
-import { PermitId, PermitType, YosemiteEntryPointId } from './enums';
+import {
+	PermitId,
+	PermitType,
+	YosemiteEntryPointId,
+	YosemiteEntryPointName,
+} from './enums';
 
 require('dotenv').config();
 
@@ -19,11 +24,13 @@ const config: IConfig = {
 		},
 	},
 	tripDetails: {
-		groupSize: '2',
-		date: '07/15/2022',
+		groupSize: '5',
+		date: '07/05/2022',
 		permitType: PermitType.OVERNIGHT,
 		permitId: PermitId.YOSEMITE_WILDERNESS,
-		entryPointId: YosemiteEntryPointId.ALDER_CREEK,
+		entryPointId: YosemiteEntryPointId.HAPPY_ISLES_LITTLE_YOSEMITE_VALLEY,
+		entryPointName:
+			YosemiteEntryPointName.HAPPY_ISLES_LITTLE_YOSEMITE_VALLEY,
 	},
 };
 

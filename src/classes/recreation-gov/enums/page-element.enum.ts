@@ -6,6 +6,7 @@ enum PageElement {
 	BOOK_NOW_CONTENT = '.per-availability-book-now-content',
 
 	ICON_CHECK = '.rec-icon-check',
+	INFORMATION_REQUIRED_CONTAINER = '.permit-information-required-heading',
 
 	BUTTON_PERMIT = '.rec-availability-date',
 	BUTTON_LOG_IN = '#ga-global-nav-log-in-link',

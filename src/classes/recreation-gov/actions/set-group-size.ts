@@ -5,11 +5,13 @@ import { IConfig } from '../../../interfaces';
 interface IProps {
 	page: Page;
 	config: IConfig;
+	customGroupSize?: string | null | undefined;
 }
 
-const setGroupSize = async ({ page, config }: IProps) => {
+const setGroupSize = async ({ page, config, customGroupSize }: IProps) => {
 	const { tripDetails } = config;
-	const { groupSize } = tripDetails;
+	const { groupSize: desiredGroupSize } = tripDetails;
+	const groupSize = customGroupSize || desiredGroupSize;
 
 	await page.focus(PageElement.INPUT_GROUPSIZE);
 	await page.click(PageElement.INPUT_GROUPSIZE);

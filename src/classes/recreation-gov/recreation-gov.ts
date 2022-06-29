@@ -45,8 +45,9 @@ class RecreationGov {
 		});
 	};
 
-	setGroupSize = async () => {
+	setGroupSize = async (customGroupSize?: string | null | undefined) => {
 		await setGroupSize({
+			customGroupSize,
 			page: this.page,
 			config: this.config,
 		});

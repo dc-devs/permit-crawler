@@ -1,1 +1,1 @@
-export { default } from './recreation-gov.class';
+export { default } from './recreation-gov';

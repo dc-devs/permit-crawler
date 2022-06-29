@@ -1,6 +1,5 @@
-interface INumbers {
-	[key: string]: string;
-}
+import INumbers from './numbers.interface';
+import ITripDetails from './trip-details.interface';
 
 interface IRecreationGovCedentials {
 	email: string;
@@ -14,18 +13,8 @@ interface ITwilioCedentials {
 }
 
 interface ICedentials {
-	twilio?: ITwilioCedentials;
+	twilio: ITwilioCedentials;
 	recreationGov: IRecreationGovCedentials;
-}
-
-interface ITripDetails {
-	date: string;
-	permitId: string;
-	siteName?: string;
-	groupSize: string;
-	permitType: string;
-	forestName?: string;
-	entryPointId: string;
 }
 
 interface IConfig {
