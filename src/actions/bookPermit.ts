@@ -20,37 +20,36 @@ const bookPermit = async ({
 	recreationGov,
 }: IProps) => {
 	const { date, groupSize, entryPointName } = tripDetails;
-	const groupSizeNum = Number(groupSize);
 
 	await recreationGov.setDate();
 	await recreationGov.setGroupSize();
 
-	await page.waitForTimeout(1000);
-
 	const { availability, permitCount } =
 		await recreationGov.getPermitAvailability();
-	const permitIsAvailable = availability === PermitAvailability.AVAILABLE;
+
 	const permitCountNum = Number(permitCount);
-	const numberOfDesiredPermitsAvailable = groupSizeNum <= permitCountNum;
+	const hasPermitsAvailable = permitCountNum > 0;
 
-	console.log({ availability, permitCount });
-	console.log('permitCountNum', permitCountNum);
-	console.log('groupSizeNum', groupSizeNum);
-	console.log(
-		'numberOfDesiredPermitsAvailable',
-		numberOfDesiredPermitsAvailable
-	);
+	const permitBookingIsUnAvailable =
+		availability === PermitAvailability.UNAVAILABLE;
+	let permitBookingIsAvailable =
+		availability === PermitAvailability.AVAILABLE;
+	let updatedGroupSize;
 
-	if (!numberOfDesiredPermitsAvailable) {
+	if (permitBookingIsUnAvailable && hasPermitsAvailable) {
 		await recreationGov.setGroupSize(permitCount);
+		permitBookingIsAvailable = true;
+		updatedGroupSize = permitCount;
 	}
 
-	if (permitIsAvailable) {
+	if (permitBookingIsAvailable) {
 		await recreationGov.selectPermit();
 		await recreationGov.clickBookNow();
 
 		twilio.sendText(
-			`${groupSize} permits at ${entryPointName} for ${date} are booked and sitting in your cart.. time to purchase!`
+			`${
+				updatedGroupSize || groupSize
+			} permits at ${entryPointName} for ${date} are booked and sitting in your cart.. time to purchase!`
 		);
 
 		const twentyMinutes = 1200000;

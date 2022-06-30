@@ -20,6 +20,7 @@ const setGroupSize = async ({ page, config, customGroupSize }: IProps) => {
 	await page.keyboard.sendCharacter(groupSize);
 	await page.click(PageElement.BODY);
 
+	await page.waitForTimeout(1000);
 	await page.waitForSelector(PageElement.BOOK_NOW_CONTENT);
 };
 

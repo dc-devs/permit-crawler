@@ -24,13 +24,12 @@ const config: IConfig = {
 		},
 	},
 	tripDetails: {
-		groupSize: '5',
+		groupSize: '15',
 		date: '07/05/2022',
 		permitType: PermitType.OVERNIGHT,
 		permitId: PermitId.YOSEMITE_WILDERNESS,
-		entryPointId: YosemiteEntryPointId.HAPPY_ISLES_LITTLE_YOSEMITE_VALLEY,
-		entryPointName:
-			YosemiteEntryPointName.HAPPY_ISLES_LITTLE_YOSEMITE_VALLEY,
+		entryPointId: YosemiteEntryPointId.ASPEN_VALLEY, //YosemiteEntryPointId.ALDER_CREEK,
+		entryPointName: YosemiteEntryPointName.ASPEN_VALLEY, // YosemiteEntryPointName.HAPPY_ISLES_LITTLE_YOSEMITE_VALLEY,
 	},
 };
 
