@@ -1,6 +1,6 @@
 import { PageElement } from '../enums';
 import { IBookPermitProps } from '../interfaces';
-import { PermitAvailability } from '../../../enums';
+import { PermitBookingAvailability } from '../../../enums';
 
 const bookPermit = async ({
 	page,
@@ -14,16 +14,17 @@ const bookPermit = async ({
 	await recreationGov.setDate();
 	await recreationGov.setGroupSize();
 
-	const { availability, permitCount } =
-		await recreationGov.getPermitAvailability();
+	const { permitBookingAvailability, permitCount } =
+		await recreationGov.getPermitBookingAvailability();
 
 	const permitCountNum = Number(permitCount);
 	const hasPermitsAvailable = permitCountNum > 0;
 
 	const permitBookingIsUnAvailable =
-		availability === PermitAvailability.UNAVAILABLE;
+		permitBookingAvailability === PermitBookingAvailability.UNAVAILABLE;
+
 	let permitBookingIsAvailable =
-		availability === PermitAvailability.AVAILABLE;
+		permitBookingAvailability === PermitBookingAvailability.AVAILABLE;
 	let updatedGroupSize;
 
 	if (permitBookingIsUnAvailable && hasPermitsAvailable) {

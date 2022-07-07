@@ -6,7 +6,7 @@ import clickBookNow from './click-book-now';
 import setGroupSize from './set-group-size';
 import visitHomePage from './visit-homepage';
 import visitPermitsPage from './visit-permits-page';
-import getPermitAvailability from './get-permit-availability';
+import getPermitBookingAvailability from './get-permit-booking-availability';
 
 export {
 	signIn,
@@ -17,5 +17,5 @@ export {
 	setGroupSize,
 	visitHomePage,
 	visitPermitsPage,
-	getPermitAvailability,
+	getPermitBookingAvailability,
 };

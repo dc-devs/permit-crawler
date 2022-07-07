@@ -1,14 +1,14 @@
 import { Page } from 'puppeteer';
 import { PageElement } from '../enums';
 import { IConfig } from '../../../interfaces';
-import { PermitAvailability } from '../../../enums';
+import { PermitBookingAvailability } from '../../../enums';
 
 interface IProps {
 	page: Page;
 	config: IConfig;
 }
 
-const getPermitAvailability = async ({ page, config }: IProps) => {
+const getPermitBookingAvailability = async ({ page, config }: IProps) => {
 	const { tripDetails } = config;
 	const { entryPointId } = tripDetails;
 
@@ -39,7 +39,7 @@ const getPermitAvailability = async ({ page, config }: IProps) => {
 				return permitRow.children[3];
 			};
 
-			const getPermitAvailability = (permitCell: HTMLElement) => {
+			const getPermitBookingAvailability = (permitCell: HTMLElement) => {
 				let availability = 'N/A';
 				const isWalkUp = permitCell.className.includes(WALK_UP);
 				const isUnavailable =
@@ -69,20 +69,20 @@ const getPermitAvailability = async ({ page, config }: IProps) => {
 
 			const permitRow = getPermitRow() as HTMLElement;
 			const permitCell = getPermitCell(permitRow) as HTMLElement;
-			const availability = getPermitAvailability(permitCell);
+			const permitBookingAvailability = getPermitBookingAvailability(permitCell);
 			const permitCount = getPermitCount(permitCell);
 
-			return { availability, permitCount };
+			return { permitBookingAvailability, permitCount };
 		},
 		{
 			entryPointId,
-			WALK_UP: PermitAvailability.WALK_UP,
-			AVAILABLE: PermitAvailability.AVAILABLE,
 			PERMIT_ROW: PageElement.PERMIT_ROW,
-			UNAVAILABLE: PermitAvailability.UNAVAILABLE,
+			WALK_UP: PermitBookingAvailability.WALK_UP,
 			PERMIT_CONTENT: PageElement.PERMIT_CONTENT,
+			AVAILABLE: PermitBookingAvailability.AVAILABLE,
+			UNAVAILABLE: PermitBookingAvailability.UNAVAILABLE,
 		}
 	);
 };
 
-export default getPermitAvailability;
+export default getPermitBookingAvailability;

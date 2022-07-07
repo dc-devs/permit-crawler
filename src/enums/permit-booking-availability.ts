@@ -1,7 +1,7 @@
-enum PermitAvailability {
+enum PermitBookingAvailability {
 	WALK_UP = 'walk-up',
 	AVAILABLE = 'available',
 	UNAVAILABLE = 'unavailable',
 }
 
-export default PermitAvailability;
+export default PermitBookingAvailability;

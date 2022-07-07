@@ -11,7 +11,7 @@ import {
 	selectPermit,
 	visitHomePage,
 	visitPermitsPage,
-	getPermitAvailability,
+	getPermitBookingAvailability,
 } from './actions';
 
 interface IProps {
@@ -72,8 +72,8 @@ class RecreationGov {
 		});
 	};
 
-	getPermitAvailability = async () => {
-		return await getPermitAvailability({
+	getPermitBookingAvailability = async () => {
+		return await getPermitBookingAvailability({
 			page: this.page,
 			config: this.config,
 		});
