@@ -1,8 +1,11 @@
-import { Page } from 'puppeteer';
+import Twilio from '../twilio';
+import { Page, Browser } from 'puppeteer';
 import { IConfig } from '../../interfaces';
+import { ITripDetails } from '../../interfaces';
 import {
 	signIn,
 	setDate,
+	bookPermit,
 	clickBookNow,
 	setGroupSize,
 	selectPermit,
@@ -13,16 +16,25 @@ import {
 
 interface IProps {
 	page: Page;
+	twilio: Twilio;
+	browser: Browser;
 	config: IConfig;
+	tripDetails: ITripDetails;
 }
 
 class RecreationGov {
 	page: Page;
+	twilio: Twilio;
 	config: IConfig;
+	browser: Browser;
+	tripDetails: ITripDetails;
 
-	constructor({ page, config }: IProps) {
+	constructor({ page, browser, twilio, config, tripDetails }: IProps) {
 		this.page = page;
+		this.twilio = twilio;
 		this.config = config;
+		this.browser = browser;
+		this.tripDetails = tripDetails;
 	}
 
 	visitHomePage = async () => {
@@ -77,6 +89,16 @@ class RecreationGov {
 	clickBookNow = async () => {
 		return await clickBookNow({
 			page: this.page,
+		});
+	};
+
+	bookPermit = async () => {
+		return await bookPermit({
+			page: this.page,
+			twilio: this.twilio,
+			browser: this.browser,
+			recreationGov: this,
+			tripDetails: this.tripDetails,
 		});
 	};
 }

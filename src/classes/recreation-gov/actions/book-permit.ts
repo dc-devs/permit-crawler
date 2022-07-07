@@ -1,16 +1,6 @@
-import { Page, Browser } from 'puppeteer';
-import { ITripDetails } from '../interfaces';
-import { PermitAvailability } from '../enums';
-import { Twilio, RecreationGov } from '../classes';
-import { PageElement } from '../classes/recreation-gov/enums';
-
-interface IProps {
-	page: Page;
-	twilio: Twilio;
-	browser: Browser;
-	tripDetails: ITripDetails;
-	recreationGov: RecreationGov;
-}
+import { PageElement } from '../enums';
+import { IBookPermitProps } from '../interfaces';
+import { PermitAvailability } from '../../../enums';
 
 const bookPermit = async ({
 	page,
@@ -18,7 +8,7 @@ const bookPermit = async ({
 	browser,
 	tripDetails,
 	recreationGov,
-}: IProps) => {
+}: IBookPermitProps) => {
 	const { date, groupSize, entryPointName } = tripDetails;
 
 	await recreationGov.setDate();
