@@ -13,6 +13,7 @@
 		"start": "node dist/start"
 	},
 	"dependencies": {
+		"axios": "^0.27.2",
 		"dotenv": "^16.0.1",
 		"puppeteer": "^15.1.1",
 		"puppeteer-extra": "^3.3.0",
