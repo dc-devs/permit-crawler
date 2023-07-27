@@ -11,13 +11,14 @@ enum PageElement {
 	BUTTON_PERMIT = '.rec-availability-date',
 	BUTTON_LOG_IN = '#ga-global-nav-log-in-link',
 	BUTTON_LOG_IN_SUBMIT = '.rec-acct-sign-in-btn',
-	BUTTON_ADD_GUESTS = '[aria-label="Add guests"]',
+	BUTTON_ADD_GUESTS = '#guest-counter',
+	BUTTON_CLOSE_GUESTS = '#guest-counter-popup > div > div.sarsa-dropdown-base-popup-actions > div > button',
 	BUTTON_BOOK_NOW = '.per-availability-book-now-content .sarsa-button',
 
 	INPUT_EMAIL = '#email',
 	INPUT_DATE = '#SingleDatePicker1',
 	INPUT_PASSWORD = '#rec-acct-sign-in-password',
-	INPUT_GROUPSIZE = '[aria-label="Number of guests"]',
+	INPUT_GROUPSIZE = '[aria-label="Number of Peoples"]',
 }
 
 export default PageElement;
