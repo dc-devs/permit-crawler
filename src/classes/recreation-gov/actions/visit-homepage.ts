@@ -6,7 +6,10 @@ interface IProps {
 }
 
 const visitHomePage = async ({ page }: IProps) => {
-	await page.goto(Url.HOMEPAGE);
+	await page.goto(Url.HOMEPAGE, {
+		waitUntil: 'domcontentloaded',
+		timeout: 30000,
+	  });
 };
 
 export default visitHomePage;
